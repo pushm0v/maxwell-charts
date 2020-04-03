@@ -1,0 +1,8 @@
+name: maxwell
+description: A Helm chart for Zendesk Maxwell
+version: 0.0.1
+apiVersion: v2
+home: https://github.com/kitabisa/charts
+sources:
+  - https://github.com/kitabisa/charts
+icon: https://avatars.githubusercontent.com/u/40655294

@@ -1,0 +1,13 @@
+{{- if .Values.configMap.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "maxwell.fullname" . }}-env
+  labels:
+    {{- include "maxwell.labels" . | nindent 4 }}
+data:
+{{- with .Values.configMap.data }}
+data:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}

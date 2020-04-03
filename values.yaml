@@ -1,0 +1,75 @@
+meta:
+  env: "dev"
+  version: "0.0.1"
+  squad: "infra"
+
+image:
+  repository: zendesk/maxwell
+  tag: v1.25.0
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name:
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  class: nginx
+  annotations: {}
+  hosts:
+    - host: maxwell.local
+      paths: ["/"]
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+configMap:
+  enabled: true
+
+  annotations: {}
+
+  subPath: ""
+
+  readOnly: true
+
+  data:
+    mw_log_level: "debug" #debug, info, warn, error
+    mw_producer: "kafka"
+    mw_kafka.bootstrap.servers: "localhost:9092"
+    mw_kafka_topic: "maxwell"
+    ## Uncomment if using SASL auth
+    #mw_kafka.security.protocol: "SASL_SSL"
+    #mw_kafka.sasl.mechanism: "PLAIN"
+    mw_host: "mysql_host"
+    mw_port: "3306"
+    mw_user: "mysql_user"
+    mw_password: "mysql_password"
+    mw_kafka.compression.type: "snappy"
+    mw_kafka.retries: "0"
+    mw_kafka.acks: "1"
+    mw_filter: "exclude: *.*,include: database.table_name"
+    mw_http_diagnostic: "true"
+    mw_http_port: "8080"
+    mw_http_path_prefix: "/"
+    mw_metrics_type: "http"
+    
